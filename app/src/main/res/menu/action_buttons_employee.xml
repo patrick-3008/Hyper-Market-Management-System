@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/action_buttons_employee"
+        android:title=""
+        android:icon="@drawable/baseline_more_vert_24"
+        app:showAsAction="always">
+
+        <menu>
+            <item android:id="@+id/add_product"
+                android:icon="@drawable/baseline_add_24"
+                android:title="Add Product"
+                app:showAsAction="always"/>
+
+            <item android:id="@+id/update_quantity"
+                android:icon="@drawable/baseline_update_24"
+                android:title="Update Quantity"
+                app:showAsAction="always"/>
+
+            <item android:id="@+id/delete_product"
+                android:icon="@drawable/baseline_delete_24"
+                android:title="Delete Product"
+                app:showAsAction="always"/>
+        </menu>
+
+    </item>
+</menu>
