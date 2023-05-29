@@ -97,7 +97,6 @@ public class UserPage extends AppCompatActivity implements AdapterView.OnItemCli
         Bundle b = getIntent().getExtras();
         String email = b.getString("email");
         emailTextview.setText(email);
-
     }
 
     private void setName() {
