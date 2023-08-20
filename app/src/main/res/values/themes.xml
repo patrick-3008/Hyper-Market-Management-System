@@ -12,6 +12,16 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="android:textViewStyle">@style/AntonTextViewStyle</item>
+        <item name="android:buttonStyle">@style/AntonButtonStyle</item>
+    </style>
+
+    <style name="AntonTextViewStyle" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/anton</item>
+    </style>
+
+    <style name="AntonButtonStyle" parent="android:Widget.Holo.Button">
+        <item name="android:fontFamily">@font/anton</item>
     </style>
 
     <style name="Theme.OOP_project.NoActionBar">

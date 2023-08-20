@@ -2,9 +2,9 @@ package com.example.oop_project.Model;
 
 public class Product {
 
+    private String name;
     private String price;
     private int quantity;
-    private String name;
     private int id;
     private static int counter = 1000;
     private int year;
@@ -19,13 +19,11 @@ public class Product {
         price = "$0.0";
     }
 
-    public Product(int quantity, String name, int year, String price, boolean damaged) {
+    public Product(int quantity, String name,String price) {
         this.quantity = quantity;
         this.name = name;
         this.id = counter++;
-        this.year = year;
         this.price = price;
-        this.damaged = damaged;
     }
 
     public Product(Product product) {
@@ -39,6 +37,10 @@ public class Product {
 
     public int getQuantity() {
         return quantity;
+    }
+
+    public void updateQuantity(Product p){
+        p.quantity--;
     }
 
     public void setQuantity(int quantity) {

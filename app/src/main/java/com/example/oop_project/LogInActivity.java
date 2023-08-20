@@ -13,7 +13,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.oop_project.Model.Admin;
 import com.example.oop_project.Model.Employee;
 import com.example.oop_project.Model.EmployeeType;
+import com.example.oop_project.Model.Product;
 import com.example.oop_project.Model.User;
+import com.example.oop_project.Model.WareHouse;
 import com.example.oop_project.ui.AdminPage;
 import com.example.oop_project.ui.EmployeePage;
 import com.example.oop_project.ui.UserPage;
@@ -31,6 +33,7 @@ public class LogInActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        getSupportActionBar().hide();
     }
 
     public EmployeeType chooseEmpType(View v) {

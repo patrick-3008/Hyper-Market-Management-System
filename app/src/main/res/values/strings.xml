@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">OOP Project</string>
     <string name="welcome_to">Welcome To</string>
-    <string name="created_by">Created by Patrick</string>
+    <string name="created_by">Created by: Patrick\nGemi\nHaneen\nDJ Khaled</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>

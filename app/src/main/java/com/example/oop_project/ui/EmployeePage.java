@@ -12,20 +12,29 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.oop_project.Adaptors.ProductAdaptor;
+import com.example.oop_project.Dialogs.AddProductDialog;
 import com.example.oop_project.LogInActivity;
 import com.example.oop_project.Model.Employee;
-import com.example.oop_project.PersonAdaptor;
+import com.example.oop_project.Model.Product;
+import com.example.oop_project.Model.WareHouse;
 import com.example.oop_project.R;
+import com.example.oop_project.Dialogs.UpdateProductDialog;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.List;
 
-public class EmployeePage extends AppCompatActivity {
+public class EmployeePage extends AppCompatActivity
+        implements AddProductDialog.AddProductDialogListener, UpdateProductDialog.UpdateProductDialogListener {
+
     List<Employee> employees = LogInActivity.employees;
+    List<Product> marketProducts = WareHouse.products;
+
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     ActionBarDrawerToggle drawerToggle;
@@ -37,10 +46,22 @@ public class EmployeePage extends AppCompatActivity {
 
         buildDrawer();
         setUsername();
+        setName();
+        buildProductListview();
+    }
 
-        ListView ls = findViewById(R.id.employee_listview);
-        PersonAdaptor adaptor = new PersonAdaptor(this, employees);
+    private void buildProductListview() {
+        ListView ls = findViewById(R.id.employee_products_listview);
+        ProductAdaptor adaptor = new ProductAdaptor(this, marketProducts);
         ls.setAdapter(adaptor);
+        ls.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                UpdateProductDialog dialog = new UpdateProductDialog(marketProducts.get(position), position);
+                dialog.show(getSupportFragmentManager(), "Update Product Dialog");
+                adaptor.notifyDataSetChanged();
+            }
+        });
     }
 
     private void buildDrawer() {
@@ -68,6 +89,7 @@ public class EmployeePage extends AppCompatActivity {
             }
         });
     }
+
     private void setUsername() {
         NavigationView mNavigationView = findViewById(R.id.nav_view);
         View mHeaderView = mNavigationView.getHeaderView(0);
@@ -77,6 +99,15 @@ public class EmployeePage extends AppCompatActivity {
         usernameTextview.setText(username);
     }
 
+    private void setName() {
+        NavigationView mNavigationView = findViewById(R.id.nav_view);
+        View mHeaderView = mNavigationView.getHeaderView(0);
+        TextView usernameTextview = mHeaderView.findViewById(R.id.drawer_header_name_textfield);
+        Bundle b = getIntent().getExtras();
+        String name = b.getString("email");
+        name = name.substring(0, name.lastIndexOf("@"));
+        usernameTextview.setText(name);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -90,8 +121,9 @@ public class EmployeePage extends AppCompatActivity {
         if (drawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
-        if (item.getItemId() == R.id.add_product) {
-            Toast.makeText(EmployeePage.this, "Product added", Toast.LENGTH_SHORT).show();
+        if (item.getItemId() == R.id.add_product_dialog) {
+            AddProductDialog dialog = new AddProductDialog();
+            dialog.show(getSupportFragmentManager(), "Add Product Dialog");
         } else if (item.getItemId() == R.id.update_quantity) {
             Toast.makeText(EmployeePage.this, "Product quantity updated", Toast.LENGTH_SHORT).show();
         } else if (item.getItemId() == R.id.delete_product) {
@@ -104,9 +136,26 @@ public class EmployeePage extends AppCompatActivity {
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
-        }
-        else {
+        } else {
             super.onBackPressed();
         }
     }
+
+    @Override
+    public void applyAddTexts(String prod_name, int prod_quantity, String prod_price) {
+        marketProducts.add(new Product(prod_quantity, prod_name, prod_price));
+    }
+
+    @Override
+    public void applyUpdateTexts(String prod_name, int prod_quantity, String prod_price, int position, boolean delete) {
+        if (delete) {
+            marketProducts.get(position).setQuantity(0);
+            buildProductListview();
+            return;
+        }
+        marketProducts.get(position).setName(prod_name);
+        marketProducts.get(position).setPrice(prod_price);
+        marketProducts.get(position).setQuantity(prod_quantity);
+    }
+
 }

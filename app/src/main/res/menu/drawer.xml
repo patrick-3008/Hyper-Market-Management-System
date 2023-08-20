@@ -3,9 +3,9 @@
 
     <group android:checkableBehavior="single">
         <item
-        android:id="@+id/home"
-        android:icon="@drawable/baseline_home_24"
-        android:title="Home"/>
+            android:id="@+id/home"
+            android:icon="@drawable/baseline_shopping_cart_checkout_24"
+            android:title="Cart" />
         <item
             android:id="@+id/settings"
             android:icon="@drawable/baseline_settings_24"
